@@ -1,0 +1,49 @@
+{
+  "market_submissions": {
+    "delphi-mkt-03": 2,
+    "delphi-mkt-01": 1,
+    "delphi-mkt-02": 1
+  },
+  "fingerprint_registry": {
+    "5ae5c11f23b280005beefa720a543becfaa8a05c04022d8ea59e458a6057e126": {
+      "market_id": "delphi-mkt-03",
+      "timestamp": "2026-11-19T16:57:37Z",
+      "date_anchor": "November 19, 2026",
+      "quote_snippet": "Boca Chica, Texas \u2014 On November 19, 2026, SpaceX successfully conducted a full-duration static fire test of Super Heavy ",
+      "metadata": {
+        "source_url": "https://spaceflightnow.com/2026/11/starship-flight-8-update",
+        "pdf_path": "data/dossiers\\DELPHI_DOSSIER_delphi-mkt-03_5ae5c11f.pdf"
+      }
+    },
+    "1204076c6c02673f8b93781c459617478b5d0e4fa820538f4d905c35dbb19a53": {
+      "market_id": "delphi-mkt-01",
+      "timestamp": "2026-11-19T16:58:06Z",
+      "date_anchor": "November 18, 2026",
+      "quote_snippet": "\u2014 On November 18, 2026, the Securities and Exchange Commission (SEC) formally approved the amended S-1 registration stat",
+      "metadata": {
+        "source_url": "https://sec.gov/news/press-release/2026-solana-etf-approved",
+        "pdf_path": "data/dossiers\\DELPHI_DOSSIER_delphi-mkt-01_1204076c.pdf"
+      }
+    },
+    "4e59cfd4b517f4f17d0a2fc47a8dca2105efa3545778a70dd4264d28ededf182": {
+      "market_id": "delphi-mkt-02",
+      "timestamp": "2026-11-19T16:58:06Z",
+      "date_anchor": "November 17, 2026",
+      "quote_snippet": "Federal Reserve Chair Jerome Powell stated on November 17, 2026 that headline CPI inflation moderated to 2",
+      "metadata": {
+        "source_url": "https://federalreserve.gov/newsevents/pressreleases/monetary20261117a.htm",
+        "pdf_path": "data/dossiers\\DELPHI_DOSSIER_delphi-mkt-02_4e59cfd4.pdf"
+      }
+    },
+    "9e3167776a444057b21cf0b9b48852f486bd702b49a1c9398d2966da4d977a89": {
+      "market_id": "delphi-mkt-03",
+      "timestamp": "2026-11-19T16:58:06Z",
+      "date_anchor": "November 19, 2026",
+      "quote_snippet": "Starbase, Texas \u2014 November 19, 2026: SpaceX successfully conducted a 33-engine static fire test of Super Heavy Booster 1",
+      "metadata": {
+        "source_url": "https://spaceflightnow.com/2026/11/starship-flight-8-tower-catch-approved",
+        "pdf_path": "data/dossiers\\DELPHI_DOSSIER_delphi-mkt-03_9e316777.pdf"
+      }
+    }
+  }
+}
