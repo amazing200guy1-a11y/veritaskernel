@@ -1,0 +1,54 @@
+name: VeritasKernel Autonomous 24/7 Cloud Miner
+
+on:
+  schedule:
+    # Runs every 30 minutes 24/7 in GitHub's cloud
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    # Allows manual 1-click trigger from GitHub UI anytime
+
+jobs:
+  mine-and-submit:
+    name: Execute Delphi Evidence Mining
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout VeritasKernel Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Pure Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install reportlab requests
+
+      - name: Run Test Suite Verification
+        run: |
+          python -m unittest discover test
+
+      - name: Execute Autonomous Evidence Mining
+        env:
+          DELPHI_API_KEY: ${{ secrets.DELPHI_API_KEY }}
+          WALLET_ADDRESS: "0x8C64e8AB285F46cB22497f9B6Ce9DF42dDD19EcC"
+        run: |
+          if [ -n "$DELPHI_API_KEY" ]; then
+            echo "[+] Live Delphi API Key detected. Running production miner..."
+            python veritas_runner.py --live
+          else
+            echo "[!] No live API key set yet (Pre-Nov 23 window). Executing autonomous simulation..."
+            python veritas_runner.py --simulate
+          fi
+
+      - name: Upload Evidentiary Dossiers (Artifacts)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: delphi-forensic-dossiers
+          path: data/dossiers/*.pdf
+          retention-days: 14

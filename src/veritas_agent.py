@@ -1,6 +1,7 @@
 """
 VeritasKernel — Autonomous Prediction Market Evidence Mining Orchestrator
-Stitches Sieve Filtering, Cryptographic Fingerprinting, PDF Compilation, and Delphi Oracle Dispatch.
+Stitches News Ingestion, Sieve Filtering, Cryptographic Fingerprinting,
+PDF Compilation, and Delphi Oracle Dispatch.
 """
 
 import sys
@@ -12,6 +13,7 @@ from src.sieve_engine import SieveEngine
 from src.dedup_ledger import DedupLedger
 from src.pdf_compiler import EvidencePDFCompiler
 from src.delphi_client import DelphiClient
+from src.news_fetcher import NewsFetcher
 
 class VeritasAgent:
     def __init__(self, api_key: Optional[str] = None, mock_mode: bool = False):
@@ -19,6 +21,7 @@ class VeritasAgent:
         self.ledger = DedupLedger()
         self.compiler = EvidencePDFCompiler()
         self.client = DelphiClient(api_key=api_key, mock_mode=mock_mode)
+        self.fetcher = NewsFetcher()
 
     def process_and_submit_lead(
         self,
@@ -28,7 +31,7 @@ class VeritasAgent:
         direction: str = "YES"
     ) -> Dict[str, Any]:
         """
-        Executes the full end-to-end pipeline on an evidence lead:
+        Executes the full pipeline on a specific raw text lead:
         1. Sieve extracts facts and computes quality score
         2. Deduplication check prevents collisions and quota exhaustion
         3. ReportLab compiles 1-page Forensic PDF Dossier
@@ -110,3 +113,25 @@ class VeritasAgent:
             "receipt": receipt,
             "total_latency_ms": round(total_latency_ms, 2)
         }
+
+    def auto_mine_market(self, market: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Autonomous harvester: pulls live news for the market, sieves, compiles, and dispatches.
+        """
+        keywords = market.get("keywords", [])
+        leads = self.fetcher.search_news_for_market(keywords, max_items=3)
+        results = []
+
+        for lead in leads:
+            res = self.process_and_submit_lead(
+                market=market,
+                raw_text=lead["full_text"],
+                source_url=lead["link"],
+                direction="YES"
+            )
+            results.append(res)
+            # If successfully submitted, respect quota
+            if res.get("success"):
+                time.sleep(0.5)
+
+        return results
