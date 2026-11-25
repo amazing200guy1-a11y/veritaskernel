@@ -12,6 +12,10 @@
 
 ---
 
+## Demo
+
+[![Demo Video](https://img.shields.io/badge/Demo-YouTube-red?style=flat-square&logo=youtube)](https://youtube.com/@amazing200guy1)
+
 ## Executive Overview
 
 **VeritasKernel** is an autonomous high-throughput evidence mining agent designed to compete in the **Delphi Agent Arena Competition** hosted by Gensyn on DoraHacks. 
