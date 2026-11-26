@@ -173,39 +173,48 @@ def main():
     submitted_addrs = get_submitted_market_addresses()
     print(f"[+] Found {len(submitted_addrs)} markets already submitted on this account.")
     
-    # Automatically march down to unsubmitted markets!
-    target_candidates = [
-        m for m in markets 
-        if m.get("address", "").lower() not in submitted_addrs
-        and m.get("category") in ("official_statistics", "votes_government", "releases_standards")
-    ][:5]
+    # Automatically prioritize high-alpha unsubmitted markets!
+    priority_addrs = [
+        "0x921e39354e4bfc18251ad1b1c80eec1a3940ab82",  # Bun GitHub release
+        "0xf640443d15af94932e1a7294c15312f0ad9e1136",  # Go release
+        "0x6d14f2291c886a3469e988a7f80d307802a40c0a",  # BLS NFP
+        "0xb50e81264ad92791f9849f7f83e0dbad03a39861",  # Mexico CPI
+        "0x94dbba7c9b44b788a701602ab6d919ff7b7fc38a"   # Swiss Turnout
+    ]
     
-    if not target_candidates:
-        target_candidates = [
-            m for m in markets 
-            if m.get("address", "").lower() not in submitted_addrs
-        ][:5]
+    unsubmitted = [m for m in markets if m.get("address", "").lower() not in submitted_addrs]
     
-    print(f"[+] Automatically targeted {len(target_candidates)} fresh unsubmitted markets.")
+    # Sort with priority addresses first
+    def get_priority(m):
+        addr = m.get("address", "").lower()
+        for idx, p in enumerate(priority_addrs):
+            if addr == p.lower():
+                return idx
+        return 999
+        
+    unsubmitted.sort(key=get_priority)
+    target_candidates = unsubmitted[:4]
+    
+    print(f"[+] Automatically targeted {len(target_candidates)} fresh unsubmitted markets:")
+    for tc in target_candidates:
+        print(f"    - {tc.get('address')[:10]}...: {tc.get('question')[:60]}")
     
     prompt = f"""You are the VeritasKernel Quantitative Forensic Analyst.
-Below are active Delphi prediction markets on official statistics and events:
-{json.dumps([{'address': m['address'], 'question': m['question'], 'category': m['category'], 'closesAt': m['closesAt'], 'odds': m['odds']} for m in target_candidates], indent=2)}
+Below are active Delphi prediction markets:
+{json.dumps([{'address': m['address'], 'question': m['question'], 'category': m['category'], 'closesAt': m['closesAt'], 'odds': m['odds'], 'dataSources': m.get('dataSources', [])} for m in target_candidates], indent=2)}
 
 Task:
-Select the top 2 markets and generate a mathematically rigorous evidence note for each, formatted strictly according to Delphi's earning criteria:
-1. The fact: Latest published official baseline figure or state, with exact number and date.
-2. The source: Official authority (e.g., Destatis, Swiss FSO, TurkStat, BLS, Federal Chancellery), publication date, and official portal URL.
-3. Relevance: How this directly bears on the resolution threshold in the question.
-4. Arithmetic & Working:
-   - Delta required between latest baseline and resolution threshold.
-   - Required rate of change (e.g., MoM change) needed to cross the threshold.
-   - Historical context / empirical frequency of such rate over the past 10-15 years.
+Generate a mathematically rigorous, novel leading-indicator evidence note for each candidate market that provides positive Information Gain (Delta I > 0) to Delphi's oracle forecaster.
 
-STRICT RULES:
-- Do NOT steer the judge.
-- Do NOT say 'Vote YES', 'Vote NO', or 'Probability adjustment'.
-- Keep each note strictly factual, mathematical, and under 800 characters.
+DELPHI JUDGING CRITERIA (TO EARN ACCEPTED STATUS & USDC BOUNTY):
+- To be ACCEPTED (not duplicate), the evidence must provide NOVEL empirical telemetry, leading frequency indicators, or stochastic arrival derivations that shift the market distribution.
+- Do NOT simply restate stale public baseline facts.
+- Do NOT steer the oracle (NEVER say 'Vote YES', 'Vote NO', 'We predict', or 'Probability adjustment').
+- Keep each note strictly under 800 characters and structured into exactly 4 parts:
+  [Empirical Telemetry]: Specific measurable data (e.g. Git commit/tag cadence lambda, DOL 4-week claims moving average, survey sample size).
+  [Primary Source]: Canonical official portal/endpoint URL from dataSources.
+  [Stochastic Model]: The formal statistical/probability model used (e.g., Stationary Poisson Point Process P(K>=1)=1-exp(-lambda*t), OLS regression, or Bayes factor update).
+  [Quantitative Derivation]: The exact numerical calculation, resulting in the model-implied probability vs current market odds.
 
 Return strictly valid JSON:
 {{
@@ -213,8 +222,13 @@ Return strictly valid JSON:
     {{
       "market_address": "0x...",
       "question": "string",
-      "note": "1. Fact: ... 2. Source: ... 3. Relevance: ... 4. Arithmetic: ...",
-      "source_url": "https://..."
+      "note": "[Empirical Telemetry] ... [Primary Source] ... [Stochastic Model] ... [Quantitative Derivation] ...",
+      "source_url": "https://...",
+      "snapshot_data": {{
+        "metric": "...",
+        "value": 0.0,
+        "derivation": "..."
+      }}
     }}
   ]
 }}
@@ -256,7 +270,8 @@ Return strictly valid JSON:
                 "question": q,
                 "source_url": url,
                 "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                "mathematical_note": note
+                "mathematical_note": note,
+                "leading_telemetry": sub.get("snapshot_data", {})
             }
             with open(snap_path, "w", encoding="utf-8") as f:
                 json.dump(snap_data, f, indent=2)
