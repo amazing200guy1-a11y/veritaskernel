@@ -63,9 +63,13 @@ def get_finnhub_news():
         return json.loads(resp.read().decode("utf-8"))
 
 def fetch_live_market_telemetry(market: dict) -> dict:
-    """Fetch real-time primary-source telemetry for a market (e.g., GitHub releases) so derivations are 100% verifiable."""
+    """Fetch real-time primary-source telemetry for a market so derivations are 100% verifiable."""
+    import re, urllib.parse
+    from datetime import datetime
     telemetry = {}
     sources = market.get("dataSources", [])
+    fetched_pages = []
+
     for src in sources:
         if "api.github.com/repos/" in src and "/releases" in src:
             try:
@@ -74,14 +78,10 @@ def fetch_live_market_telemetry(market: dict) -> dict:
                 req = urllib.request.Request(api_url, headers=headers)
                 with urllib.request.urlopen(req, timeout=15) as resp:
                     releases = json.loads(resp.read().decode("utf-8"))
-                from datetime import datetime
-                stable = []
-                for r in releases:
-                    if not r.get("prerelease") and r.get("published_at"):
-                        stable.append({
-                            "tag": r.get("tag_name"),
-                            "published_at": r.get("published_at")
-                        })
+                stable = [
+                    {"tag": r.get("tag_name"), "published_at": r.get("published_at")}
+                    for r in releases if not r.get("prerelease") and r.get("published_at")
+                ]
                 if len(stable) >= 2:
                     t0 = datetime.fromisoformat(stable[0]["published_at"].replace("Z", "+00:00"))
                     t_last = datetime.fromisoformat(stable[-1]["published_at"].replace("Z", "+00:00"))
@@ -91,16 +91,50 @@ def fetch_live_market_telemetry(market: dict) -> dict:
                         "source": api_url,
                         "latest_tag": stable[0]["tag"],
                         "latest_published_at": stable[0]["published_at"],
-                        "oldest_sampled_tag": stable[-1]["tag"],
-                        "oldest_sampled_at": stable[-1]["published_at"],
                         "sample_count": len(stable),
                         "span_days": round(span_days, 2),
                         "empirical_lambda_per_day": round(lam, 4),
                         "recent_5_tags": stable[:5]
                     }
-                break
             except Exception as e:
                 telemetry["github_fetch_error"] = str(e)
+        else:
+            try:
+                req = urllib.request.Request(
+                    src,
+                    headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+                )
+                with urllib.request.urlopen(req, timeout=12) as resp:
+                    raw = resp.read().decode("utf-8", errors="replace")
+                text = re.sub(r"<(script|style|noscript)[^>]*>.*?</\1>", " ", raw, flags=re.S | re.I)
+                text = re.sub(r"<[^>]+>", " ", text)
+                text = re.sub(r"\s+", " ", text).strip()
+                if len(text) > 350:
+                    fetched_pages.append({"url": src, "excerpt": text[:3000]})
+            except Exception:
+                pass
+
+    if fetched_pages:
+        telemetry["primary_source_excerpts"] = fetched_pages[:2]
+
+    # Also fetch recent live news RSS for real-time event updates (scores, polls, releases)
+    try:
+        q_clean = re.sub(r"[^a-zA-Z0-9\s]", " ", market.get("question", ""))
+        words = [w for w in q_clean.split() if len(w) > 3][:7]
+        if words:
+            rss_url = "https://news.google.com/rss/search?q=" + urllib.parse.quote(" ".join(words)) + "&hl=en-US&gl=US&ceid=US:en"
+            req = urllib.request.Request(rss_url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=12) as resp:
+                xml_raw = resp.read().decode("utf-8", errors="replace")
+            items = re.findall(r"<item>.*?<title>(.*?)</title>.*?<link>(.*?)</link>.*?<pubDate>(.*?)</pubDate>.*?</item>", xml_raw, re.S)
+            if items:
+                telemetry["live_news_items"] = [
+                    {"title": re.sub(r"<[^>]+>", "", t).strip(), "url": l.strip(), "pubDate": d.strip()}
+                    for t, l, d in items[:5]
+                ]
+    except Exception:
+        pass
+
     return telemetry
 
 def get_delphi_markets():
@@ -214,22 +248,25 @@ def main():
     submitted_addrs = get_submitted_market_addresses()
     print(f"[+] Found {len(submitted_addrs)} markets already submitted on this account.")
     
-    # Automatically prioritize high-alpha unsubmitted markets!
+    # Automatically prioritize fresh, high-alpha untouched markets (1, 2, 3...)
     priority_addrs = [
-        "0x921e39354e4bfc18251ad1b1c80eec1a3940ab82",  # Bun GitHub release
-        "0xf640443d15af94932e1a7294c15312f0ad9e1136",  # Go release
-        "0x6d14f2291c886a3469e988a7f80d307802a40c0a",  # BLS NFP
-        "0xb50e81264ad92791f9849f7f83e0dbad03a39861",  # Mexico CPI
-        "0x94dbba7c9b44b788a701602ab6d919ff7b7fc38a"   # Swiss Turnout
+        "0x42fdc3fb",  # 1. FIDE World Chess Championship 2026 (Gukesh vs Sindarov)
+        "0x94dbba7c",  # 2. Swiss Federal Vote Turnout Nov 29
+        "0xa96dc716",  # 3. ARC-AGI-3 Kaggle Leaderboard
+        "0x55b0fabf",  # 4. Spain General Election Nov 29
+        "0x191257a0",  # 5. Swiss War Materiel Act Nov 29
+        "0x20dee82e",  # 6. Valencia Marathon sub-2:03
+        "0x6d14f229",  # 7. BLS NFP
+        "0xb50e8126"   # 8. Mexico CPI
     ]
     
     unsubmitted = [m for m in markets if m.get("address", "").lower() not in submitted_addrs]
     
-    # Sort with priority addresses first
+    # Sort with priority addresses first (prefix match supported)
     def get_priority(m):
         addr = m.get("address", "").lower()
         for idx, p in enumerate(priority_addrs):
-            if addr == p.lower():
+            if addr.startswith(p.lower()):
                 return idx
         return 999
         
