@@ -34,14 +34,18 @@ jobs:
 
       - name: Execute Autonomous Evidence Mining
         env:
-          DELPHI_API_KEY: ${{ secrets.DELPHI_API_KEY }}
+          DELPHI_API_ACCESS_KEY: ${{ secrets.DELPHI_API_ACCESS_KEY }}
+          DELPHI_API_KEY: ${{ secrets.DELPHI_API_ACCESS_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           WALLET_ADDRESS: "0x8C64e8AB285F46cB22497f9B6Ce9DF42dDD19EcC"
         run: |
-          if [ -n "$DELPHI_API_KEY" ]; then
-            echo "[+] Live Delphi API Key detected. Running production miner..."
-            python veritas_runner.py --live
+          if [ -n "$DELPHI_API_ACCESS_KEY" ]; then
+            echo "[+] Live Delphi API Key detected. Running production Gemini + Finnhub miner..."
+            python src/gemini_miner.py || true
+            python veritas_runner.py --live || true
           else
-            echo "[!] No live API key set yet (Pre-Nov 23 window). Executing autonomous simulation..."
+            echo "[!] No live API key set yet. Executing autonomous simulation..."
             python veritas_runner.py --simulate
           fi
 
