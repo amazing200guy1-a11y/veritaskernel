@@ -27,10 +27,14 @@ GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
 FINNHUB_KEY = os.environ.get("FINNHUB_API_KEY", "")
 
 def call_gemini(prompt: str) -> str:
-    models = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-flash-latest", "gemini-3.1-pro-preview", "gemini-2.5-flash"]
+    endpoints = [
+        "https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
+    ]
     last_err = None
-    for model in models:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_KEY}"
+    for ep in endpoints:
+        url = f"{ep}?key={GEMINI_KEY}"
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {"temperature": 0.2}
@@ -50,7 +54,7 @@ def call_gemini(prompt: str) -> str:
             except Exception as e:
                 last_err = e
                 time.sleep(1)
-    raise RuntimeError(f"All Gemini models exhausted. Last error: {last_err}")
+    raise RuntimeError(f"All Gemini endpoints exhausted. Last error: {last_err}")
 
 def get_finnhub_news():
     url = f"https://finnhub.io/api/v1/news?category=general&token={FINNHUB_KEY}"
@@ -186,7 +190,9 @@ Return your answer in strictly valid JSON:
                 time.sleep(5)
                 res = check_submission_result(sub_id)
                 if res:
-                    print(f"    [+] Status: {res.get('status')} | Verdict: {res.get('markets', [{}])[0].get('verdict', 'pending')}")
+                    m_list = res.get('markets', [])
+                    verdict = m_list[0].get('verdict', 'judging') if m_list else 'queued/judging'
+                    print(f"    [+] Status: {res.get('status')} | Verdict: {verdict}")
 
     except Exception as e:
         print(f"[-] Execution notice: {e}")
