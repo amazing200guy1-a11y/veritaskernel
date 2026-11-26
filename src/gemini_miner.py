@@ -62,6 +62,47 @@ def get_finnhub_news():
     with urllib.request.urlopen(req, timeout=15) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
+def fetch_live_market_telemetry(market: dict) -> dict:
+    """Fetch real-time primary-source telemetry for a market (e.g., GitHub releases) so derivations are 100% verifiable."""
+    telemetry = {}
+    sources = market.get("dataSources", [])
+    for src in sources:
+        if "api.github.com/repos/" in src and "/releases" in src:
+            try:
+                api_url = src.split("?")[0] + "?per_page=15"
+                headers = {"User-Agent": "VeritasKernel-Miner/1.0", "Accept": "application/vnd.github+json"}
+                req = urllib.request.Request(api_url, headers=headers)
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    releases = json.loads(resp.read().decode("utf-8"))
+                from datetime import datetime
+                stable = []
+                for r in releases:
+                    if not r.get("prerelease") and r.get("published_at"):
+                        stable.append({
+                            "tag": r.get("tag_name"),
+                            "published_at": r.get("published_at")
+                        })
+                if len(stable) >= 2:
+                    t0 = datetime.fromisoformat(stable[0]["published_at"].replace("Z", "+00:00"))
+                    t_last = datetime.fromisoformat(stable[-1]["published_at"].replace("Z", "+00:00"))
+                    span_days = max((t0 - t_last).total_seconds() / 86400.0, 0.01)
+                    lam = (len(stable) - 1) / span_days
+                    telemetry["github_releases"] = {
+                        "source": api_url,
+                        "latest_tag": stable[0]["tag"],
+                        "latest_published_at": stable[0]["published_at"],
+                        "oldest_sampled_tag": stable[-1]["tag"],
+                        "oldest_sampled_at": stable[-1]["published_at"],
+                        "sample_count": len(stable),
+                        "span_days": round(span_days, 2),
+                        "empirical_lambda_per_day": round(lam, 4),
+                        "recent_5_tags": stable[:5]
+                    }
+                break
+            except Exception as e:
+                telemetry["github_fetch_error"] = str(e)
+    return telemetry
+
 def get_delphi_markets():
     cache_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "markets.json")
     url = "https://competition.delphi.fyi/markets.json"
@@ -196,22 +237,35 @@ def main():
     target_candidates = unsubmitted[:4]
     
     print(f"[+] Automatically targeted {len(target_candidates)} fresh unsubmitted markets:")
+    enriched_candidates = []
     for tc in target_candidates:
         print(f"    - {tc.get('address')[:10]}...: {tc.get('question')[:60]}")
+        live_tel = fetch_live_market_telemetry(tc)
+        if live_tel:
+            print(f"      [+] Live telemetry fetched: {list(live_tel.keys())}")
+        enriched_candidates.append({
+            "address": tc["address"],
+            "question": tc["question"],
+            "category": tc["category"],
+            "closesAt": tc["closesAt"],
+            "odds": tc["odds"],
+            "dataSources": tc.get("dataSources", []),
+            "live_verified_telemetry": live_tel
+        })
     
     prompt = f"""You are the VeritasKernel Quantitative Forensic Analyst.
-Below are active Delphi prediction markets:
-{json.dumps([{'address': m['address'], 'question': m['question'], 'category': m['category'], 'closesAt': m['closesAt'], 'odds': m['odds'], 'dataSources': m.get('dataSources', [])} for m in target_candidates], indent=2)}
+Below are active Delphi prediction markets WITH LIVE VERIFIED PRIMARY-SOURCE TELEMETRY:
+{json.dumps(enriched_candidates, indent=2)}
 
 Task:
 Generate a mathematically rigorous, novel leading-indicator evidence note for each candidate market that provides positive Information Gain (Delta I > 0) to Delphi's oracle forecaster.
 
 DELPHI JUDGING CRITERIA (TO EARN ACCEPTED STATUS & USDC BOUNTY):
-- To be ACCEPTED (not duplicate), the evidence must provide NOVEL empirical telemetry, leading frequency indicators, or stochastic arrival derivations that shift the market distribution.
+- To be ACCEPTED (not duplicate and not unverifiable), you MUST ground [Empirical Telemetry] in the exact numbers from `live_verified_telemetry` (when present) or verifiable `dataSources` — NEVER invent or guess dates, tags, or counts.
 - Do NOT simply restate stale public baseline facts.
 - Do NOT steer the oracle (NEVER say 'Vote YES', 'Vote NO', 'We predict', or 'Probability adjustment').
 - Keep each note strictly under 800 characters and structured into exactly 4 parts:
-  [Empirical Telemetry]: Specific measurable data (e.g. Git commit/tag cadence lambda, DOL 4-week claims moving average, survey sample size).
+  [Empirical Telemetry]: Specific measurable data (e.g. exact latest tag, release timestamps, sample count, span days, empirical lambda).
   [Primary Source]: Canonical official portal/endpoint URL from dataSources.
   [Stochastic Model]: The formal statistical/probability model used (e.g., Stationary Poisson Point Process P(K>=1)=1-exp(-lambda*t), OLS regression, or Bayes factor update).
   [Quantitative Derivation]: The exact numerical calculation, resulting in the model-implied probability vs current market odds.
