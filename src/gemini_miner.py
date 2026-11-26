@@ -248,16 +248,22 @@ def main():
     submitted_addrs = get_submitted_market_addresses()
     print(f"[+] Found {len(submitted_addrs)} markets already submitted on this account.")
     
-    # Automatically prioritize fresh, high-alpha untouched markets (1, 2, 3...)
+    # Automatically prioritize fresh, high-alpha untouched markets
     priority_addrs = [
-        "0x42fdc3fb",  # 1. FIDE World Chess Championship 2026 (Gukesh vs Sindarov)
-        "0x94dbba7c",  # 2. Swiss Federal Vote Turnout Nov 29
-        "0xa96dc716",  # 3. ARC-AGI-3 Kaggle Leaderboard
-        "0x55b0fabf",  # 4. Spain General Election Nov 29
-        "0x191257a0",  # 5. Swiss War Materiel Act Nov 29
-        "0x20dee82e",  # 6. Valencia Marathon sub-2:03
-        "0x6d14f229",  # 7. BLS NFP
-        "0xb50e8126"   # 8. Mexico CPI
+        "0x20dee82e",  # Valencia Marathon sub-2:03
+        "0x6d14f229",  # BLS NFP
+        "0xb50e8126",  # Mexico CPI
+        "0x61be752b",  # Bank of Canada rate
+        "0x94a46dbc",  # FOMC dissent
+        "0x10d5075e",  # UK ONS GDP
+        "0x2b7c2f3f",  # German Bundestag PNOG
+        "0xf640443d",  # Go 1.27.5 release
+        "0x191257a0",  # Swiss War Materiel Act
+        "0xbb266674",  # Korea 2027 budget
+        "0x55224cfb",  # Japan Q3 GDP
+        "0x169f02be",  # Japan food tax cut
+        "0x10f7f232",  # France Art 49.3
+        "0xfdac0b32",  # Swiss Federal Council
     ]
     
     unsubmitted = [m for m in markets if m.get("address", "").lower() not in submitted_addrs]
@@ -271,7 +277,7 @@ def main():
         return 999
         
     unsubmitted.sort(key=get_priority)
-    target_candidates = unsubmitted[:4]
+    target_candidates = unsubmitted[:6]
     
     print(f"[+] Automatically targeted {len(target_candidates)} fresh unsubmitted markets:")
     enriched_candidates = []
@@ -298,14 +304,15 @@ Task:
 Generate a mathematically rigorous, novel leading-indicator evidence note for each candidate market that provides positive Information Gain (Delta I > 0) to Delphi's oracle forecaster.
 
 DELPHI JUDGING CRITERIA (TO EARN ACCEPTED STATUS & USDC BOUNTY):
-- To be ACCEPTED (not duplicate and not unverifiable), you MUST ground [Empirical Telemetry] in the exact numbers from `live_verified_telemetry` (when present) or verifiable `dataSources` — NEVER invent or guess dates, tags, or counts.
-- Do NOT simply restate stale public baseline facts.
+- STRICT INFORMATION GAIN GATE: You MUST set "has_concrete_new_evidence": false and SKIP the market if `live_verified_telemetry` does NOT contain a specific, concrete, verifiable number, date, poll, economic print, or event fact directly relevant to the market question.
+- NEVER fall back to generic statements like "portal active", "historical averages", or "milestone distributions" without exact live numbers from `live_verified_telemetry`.
+- To be ACCEPTED (not duplicate and not unverifiable), ground [Empirical Telemetry] in exact verifiable numbers from `live_verified_telemetry` and set `source_url` to the exact URL from `live_verified_telemetry` where that data appears.
 - Do NOT steer the oracle (NEVER say 'Vote YES', 'Vote NO', 'We predict', or 'Probability adjustment').
 - Keep each note strictly under 800 characters and structured into exactly 4 parts:
-  [Empirical Telemetry]: Specific measurable data (e.g. exact latest tag, release timestamps, sample count, span days, empirical lambda).
-  [Primary Source]: Canonical official portal/endpoint URL from dataSources.
-  [Stochastic Model]: The formal statistical/probability model used (e.g., Stationary Poisson Point Process P(K>=1)=1-exp(-lambda*t), OLS regression, or Bayes factor update).
-  [Quantitative Derivation]: The exact numerical calculation, resulting in the model-implied probability vs current market odds.
+  [Empirical Telemetry]: Exact verifiable figures/dates extracted from `live_verified_telemetry`.
+  [Primary Source]: Exact verifiable URL from `live_verified_telemetry`.
+  [Stochastic Model]: Formal statistical/probability model used.
+  [Quantitative Derivation]: Exact numerical calculation resulting in model-implied probability vs current market odds.
 
 Return strictly valid JSON:
 {{
@@ -313,6 +320,8 @@ Return strictly valid JSON:
     {{
       "market_address": "0x...",
       "question": "string",
+      "has_concrete_new_evidence": true,
+      "skip_reason": "",
       "note": "[Empirical Telemetry] ... [Primary Source] ... [Stochastic Model] ... [Quantitative Derivation] ...",
       "source_url": "https://...",
       "snapshot_data": {{
@@ -349,6 +358,9 @@ Return strictly valid JSON:
         for idx, sub in enumerate(submissions, 1):
             addr = sub.get("market_address")
             q = sub.get("question")
+            if not sub.get("has_concrete_new_evidence", False):
+                print(f"\n[{idx}] SKIPPED (Information Gain Gate): {q} ({addr}) | Reason: {sub.get('skip_reason', 'No concrete live data')}")
+                continue
             note = sub.get("note")
             url = sub.get("source_url")
             print(f"\n[{idx}] Market: {q} ({addr})")
