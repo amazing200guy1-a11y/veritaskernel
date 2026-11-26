@@ -63,10 +63,24 @@ def get_finnhub_news():
         return json.loads(resp.read().decode("utf-8"))
 
 def get_delphi_markets():
+    cache_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "markets.json")
     url = "https://competition.delphi.fyi/markets.json"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=8) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            try:
+                with open(cache_path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2)
+            except Exception:
+                pass
+            return data
+    except Exception as e:
+        print(f"[-] Note: Delphi live markets query timed out ({e}), using local cache.")
+        if os.path.exists(cache_path):
+            with open(cache_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        raise e
 
 def submit_delphi_evidence(market_address: str, note: str, links: list = None, file_path: str = None):
     if not DELPHI_KEY or not requests:
@@ -123,6 +137,31 @@ def check_submission_result(sub_id: str):
         print(f"[-] Result query error: {e}")
     return None
 
+def get_submitted_market_addresses():
+    submitted = set()
+    reg_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "submitted_registry.json")
+    if os.path.exists(reg_path):
+        try:
+            with open(reg_path, "r", encoding="utf-8") as f:
+                for addr in json.load(f):
+                    submitted.add(addr.lower())
+        except Exception:
+            pass
+
+    if DELPHI_KEY and requests:
+        headers = {"Authorization": f"Bearer {DELPHI_KEY}"}
+        try:
+            resp = requests.get("https://delphi.fyi/v1/submissions?limit=50", headers=headers, timeout=10)
+            items = resp.json().get("items", [])
+            for s in items:
+                for m in s.get("markets", []):
+                    addr = m.get("marketAddress")
+                    if addr:
+                        submitted.add(addr.lower())
+        except Exception as e:
+            print(f"[-] Note: Delphi remote query timed out ({e}), using local registry.")
+    return submitted
+
 def main():
     print("==================================================")
     print("  VERITASKERNEL — MATHEMATICAL EVIDENCE MINER")
@@ -130,14 +169,24 @@ def main():
     markets = get_delphi_markets()
     print(f"[+] Loaded {len(markets)} competition prediction markets.")
     
-    # Target top official statistical and event markets with odds between 20% and 80%
+    # Check which markets we have already submitted to
+    submitted_addrs = get_submitted_market_addresses()
+    print(f"[+] Found {len(submitted_addrs)} markets already submitted on this account.")
+    
+    # Automatically march down to unsubmitted markets!
     target_candidates = [
         m for m in markets 
-        if m.get("category") in ("official_statistics", "votes_government", "releases_standards")
-        and 0.20 <= m.get("odds", {}).get("yes", 0.5) <= 0.80
+        if m.get("address", "").lower() not in submitted_addrs
+        and m.get("category") in ("official_statistics", "votes_government", "releases_standards")
     ][:5]
     
-    print(f"[+] Filtered {len(target_candidates)} high-potential prediction markets.")
+    if not target_candidates:
+        target_candidates = [
+            m for m in markets 
+            if m.get("address", "").lower() not in submitted_addrs
+        ][:5]
+    
+    print(f"[+] Automatically targeted {len(target_candidates)} fresh unsubmitted markets.")
     
     prompt = f"""You are the VeritasKernel Quantitative Forensic Analyst.
 Below are active Delphi prediction markets on official statistics and events:
@@ -182,7 +231,13 @@ Return strictly valid JSON:
         elif "```" in clean:
             clean = clean.split("```")[1].split("```")[0].strip()
         
-        data = json.loads(clean)
+        import re
+        clean_sanitized = re.sub(r'\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', clean)
+        try:
+            data = json.loads(clean_sanitized, strict=False)
+        except Exception:
+            data = json.loads(clean, strict=False)
+        
         submissions = data.get("submissions", [])
         print(f"[+] Prepared {len(submissions)} compliant mathematical submissions.")
         
@@ -210,6 +265,16 @@ Return strictly valid JSON:
             if res and "id" in res:
                 sub_id = res["id"]
                 print(f"    [+] Submitted! ID: {sub_id}")
+                try:
+                    reg_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "submitted_registry.json")
+                    with open(reg_path, "r", encoding="utf-8") as f:
+                        reg = json.load(f)
+                    if addr.lower() not in [x.lower() for x in reg]:
+                        reg.append(addr.lower())
+                        with open(reg_path, "w", encoding="utf-8") as f:
+                            json.dump(reg, f, indent=2)
+                except Exception:
+                    pass
                 time.sleep(5)
                 status_res = check_submission_result(sub_id)
                 if status_res:

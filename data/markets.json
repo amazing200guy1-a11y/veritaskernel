@@ -1,0 +1,714 @@
+[
+  {
+    "address": "0x94dbba7c9b44b788a701602ab6d919ff7b7fc38a",
+    "question": "Will turnout in Switzerland's federal vote of Nov 29, 2026 be at least 50.0%, per the Federal Chancellery?",
+    "delphiUrl": "https://delphi.fyi/market/79ad7f1c-eb5c-48ed-b1cc-203f95d062f5",
+    "category": "votes_government",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.516056,
+      "no": 0.483944
+    },
+    "closesAt": "2026-11-29T06:00:00.000Z",
+    "evidenceCutoffAt": "2026-11-28T06:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u226550.0%\": Wins if the Federal Chancellery's official turnout figure for Switzerland's federal vote of November 29, 2026, published strictly after 2026-11-24T09:06:27.769Z and at or before 2026-11-29T19:00:00.000Z, is 50.0% or higher.\n- \"No, <50.0%\": Wins if the Federal Chancellery's official turnout figure for Switzerland's federal vote of November 29, 2026, published strictly after 2026-11-24T09:06:27.769Z and at or before 2026-11-29T19:00:00.000Z, is below 50.0%.\n\nClarifications:\n- Turnout is defined as the percentage of registered voters who cast a valid or blank ballot, as reported in the Federal Chancellery's official results for the November 29, 2026 federal vote. If the Federal Chancellery releases only a preliminary turnout figure within the window, that figure is used; if no figure is published within the window, the market is unresolvable.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-11-29T14:00:00.000Z to 2026-11-29T19:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://www.bk.admin.ch",
+      "https://opendata.swiss"
+    ],
+    "settled": null,
+    "categoryLabel": "Votes and government"
+  },
+  {
+    "address": "0x191257a08df3a827a9a02fa54926ed9507b4497a",
+    "question": "Will Swiss voters approve the 19 Dec 2025 amendment to the War Materiel Act in the federal vote of Nov 29, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/4bff12b0-aa95-4bc2-9fbe-53fcaa307b60",
+    "category": "votes_government",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.54932,
+      "no": 0.45068
+    },
+    "closesAt": "2026-11-29T06:00:00.000Z",
+    "evidenceCutoffAt": "2026-11-28T06:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the amendment of 19 December 2025 to the Federal Act on War Material (LFMG) receives a majority of valid votes cast in the Swiss federal popular vote held on 29 November 2026, with the official result confirmed strictly after 2026-11-24T09:17:34.020Z and at or before 2026-11-29T19:00:00.000Z.\n- \"No\": Wins if the amendment of 19 December 2025 to the Federal Act on War Material (LFMG) does not receive a majority of valid votes cast in the Swiss federal popular vote held on 29 November 2026, with the official result confirmed strictly after 2026-11-24T09:17:34.020Z and at or before 2026-11-29T19:00:00.000Z.\n\nClarifications:\n- The result is determined by the share of valid popular votes (not a double majority of voters and cantons, as this is an optional referendum subject only to a popular majority).\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-11-29T14:00:00.000Z to 2026-11-29T19:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://www.admin.ch/gov/en/start/documentation/votes.html",
+      "https://www.seco.admin.ch/en/referendum-wma",
+      "https://opendata.swiss",
+      "https://www.srf.ch/news",
+      "https://www.swissinfo.ch"
+    ],
+    "settled": null,
+    "categoryLabel": "Votes and government"
+  },
+  {
+    "address": "0x55b0fabfcdf6125415854cc193ecd8cdc75bc382",
+    "question": "Will Vox win \u226560 of 350 Congress seats in Spain's Nov 29, 2026 general election, per Interior Ministry provisional results?",
+    "delphiUrl": "https://delphi.fyi/market/e11f656b-3ba0-4e84-aef4-8611397c6434",
+    "category": "local_language",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.482591,
+      "no": 0.517409
+    },
+    "closesAt": "2026-11-29T06:00:00.000Z",
+    "evidenceCutoffAt": "2026-11-28T06:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u226560 seats\": Wins if Vox is credited with 60 or more seats in the Congress of Deputies in the Spanish Interior Ministry's provisional results for the November 29, 2026 general election, published strictly after 2026-11-24T09:17:34.169Z and at or before 2026-11-30T01:00:00.000Z.\n- \"No, <60 seats\": Wins if Vox is credited with fewer than 60 seats in the Congress of Deputies in the Spanish Interior Ministry's provisional results for the November 29, 2026 general election, published strictly after 2026-11-24T09:17:34.169Z and at or before 2026-11-30T01:00:00.000Z.\n\nClarifications:\n- The seat count used is the Vox total shown in the Interior Ministry's provisional count (escrutinio provisional) at the time of settlement, not the later official count (escrutinio general) published by the Central Electoral Board.\n- If the Ministry's provisional results have not been published, or Vox's seat total is not yet reported, by 2026-11-30T01:00:00.000Z, neither outcome's condition is met within the settlement window.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-11-29T14:00:00.000Z to 2026-11-30T01:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://infoelectoral.interior.gob.es/en/inicio",
+      "https://www.reuters.com",
+      "https://apnews.com"
+    ],
+    "settled": null,
+    "categoryLabel": "Local-language sources"
+  },
+  {
+    "address": "0x0d79f61a3cf6c6a83501fcb6abd22eddb4ab6a58",
+    "question": "Will Destatis's preliminary German CPI (VPI) annual rate for Nov 2026, published 2026-11-30, be 2.8% or higher?",
+    "delphiUrl": "https://delphi.fyi/market/821c90c8-5740-4a50-ac6b-03a1b462aa76",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.568335,
+      "no": 0.431665
+    },
+    "closesAt": "2026-11-30T08:00:00.000Z",
+    "evidenceCutoffAt": "2026-11-29T08:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, 2.8% or higher\": Wins if the Destatis preliminary Consumer Price Index (VPI) annual rate for November 2026, published in the press release issued strictly after 2026-11-24T09:17:34.007Z and at or before 2026-11-30T16:00:00.000Z, is 2.8% or higher.\n- \"No, below 2.8%\": Wins if the Destatis preliminary Consumer Price Index (VPI) annual rate for November 2026, published in the press release issued strictly after 2026-11-24T09:17:34.007Z and at or before 2026-11-30T16:00:00.000Z, is below 2.8%.\n\nClarifications:\n- The annual rate is the year-on-year change in the German CPI (VPI) for November 2026 as stated in Destatis's preliminary (\"provisional\") press release scheduled for 2026-11-30. If Destatis publishes a corrected or revised preliminary figure within the settlement window, the most recently published figure takes precedence.",
+    "dataSources": [
+      "https://www.destatis.de/EN/Themes/Economy/Prices/Consumer-Price-Index/_node.html"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0xecace7b63b2e044dd339e7512cf4360713a8e156",
+    "question": "Will Swiss FSO report Nov 2026 CPI YoY inflation \u22651.6% in its Dec 2 release?",
+    "delphiUrl": "https://delphi.fyi/market/18ad479a-3d92-43e0-8951-6f61085d6fb8",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.477553,
+      "no": 0.522447
+    },
+    "closesAt": "2026-12-02T07:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-01T07:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the Swiss Federal Statistical Office (FSO) December 2, 2026 press release, published strictly after 2026-11-24T09:07:58.326Z and at or before 2026-12-02T15:00:00.000Z, reports a November 2026 CPI year-on-year (YoY) inflation figure of 1.6% or higher.\n- \"No\": Wins if the Swiss Federal Statistical Office (FSO) December 2, 2026 press release, published strictly after 2026-11-24T09:07:58.326Z and at or before 2026-12-02T15:00:00.000Z, reports a November 2026 CPI year-on-year (YoY) inflation figure below 1.6%.\n\nClarifications:\n- The YoY inflation figure is the percentage change in the Swiss National Consumer Price Index for November 2026 compared with November 2025, as stated in the FSO's official press release for that month.",
+    "dataSources": [
+      "https://www.bfs.admin.ch/bfs/en/home/statistics/prices/consumer-price-index.html",
+      "https://www.bfs.admin.ch/en/press-releases"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0xbb2666746de61bb1b119398f4db48a53d64e20cd",
+    "question": "Will the Korean National Assembly pass the 2027 budget bill in a plenary vote by Dec 2, 2026 23:59 KST?",
+    "delphiUrl": "https://delphi.fyi/market/b3839b24-9d89-478a-b9f8-82a3cef3f190",
+    "category": "local_language",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.666264,
+      "no": 0.333736
+    },
+    "closesAt": "2026-12-02T14:59:00.000Z",
+    "evidenceCutoffAt": "2026-12-01T14:59:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the Korean National Assembly passes the 2027 fiscal year budget bill in a plenary vote strictly after 2026-11-24T09:07:59Z and at or before 2026-12-02T14:59:00Z (i.e., by Dec 2, 2026 23:59 KST).\n- \"No\": Wins if no such plenary vote approving the 2027 budget bill occurs strictly after 2026-11-24T09:07:59Z and at or before 2026-12-02T14:59:00Z.",
+    "dataSources": [
+      "https://www.yna.co.kr",
+      "https://koreajoongangdaily.joins.com"
+    ],
+    "settled": null,
+    "categoryLabel": "Local-language sources"
+  },
+  {
+    "address": "0x48c2f4d761be00f8d9342a7de34d54673c506631",
+    "question": "Will TurkStat report Turkey's annual CPI inflation for November 2026 at 30.00% or higher on Dec 3, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/19257fb7-bb6b-4429-8026-ac62721d2fbc",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.608348,
+      "no": 0.391652
+    },
+    "closesAt": "2026-12-03T05:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-02T05:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, 30.00% or higher\": Wins if TurkStat's official November 2026 annual CPI inflation figure, published strictly after 2026-11-24T09:08:08.483Z and at or before 2026-12-03T13:00:00.000Z, is 30.00% or higher.\n- \"No, below 30.00%\": Wins if TurkStat's official November 2026 annual CPI inflation figure, published strictly after 2026-11-24T09:08:08.483Z and at or before 2026-12-03T13:00:00.000Z, is strictly below 30.00%.\n\nClarifications:\n- The figure used is TurkStat's official year-over-year (annual) CPI change for November 2026, as released in TurkStat's Consumer Price Index press release on or around December 3, 2026.",
+    "dataSources": [
+      "https://veriportali.tuik.gov.tr/en/",
+      "https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN/Main+Menu/Statistics/Inflation+Data/Consumer+Prices"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0xda5d046f5bac4bbfa5abe32bc52787725548d4ee",
+    "question": "Will any IESG member record a DISCUSS on draft-ietf-mpls-mna-ioam in the IETF Datatracker by 2026-12-03 23:59 UTC?",
+    "delphiUrl": "https://delphi.fyi/market/95e72375-8fc1-4f02-af8a-d0172cd5f176",
+    "category": "releases_standards",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.32064,
+      "no": 0.67936
+    },
+    "closesAt": "2026-12-03T12:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-02T12:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if at least one IESG member records a DISCUSS ballot position on draft-ietf-mpls-mna-ioam in the IETF Datatracker strictly after 2026-11-24T09:08:32.526Z and at or before 2026-12-03T20:00:00Z.\n- \"No\": Wins if no IESG member records a DISCUSS ballot position on draft-ietf-mpls-mna-ioam in the IETF Datatracker strictly after 2026-11-24T09:08:32.526Z and at or before 2026-12-03T20:00:00Z.\n\nClarifications:\n- A \"DISCUSS\" position is the formal IESG ballot position type labelled \"Discuss\" as displayed on the document's ballot page in the IETF Datatracker; a Discuss comment posted without a formal Discuss position does not qualify.",
+    "dataSources": [
+      "https://datatracker.ietf.org/doc/draft-ietf-mpls-mna-ioam/"
+    ],
+    "settled": null,
+    "categoryLabel": "Releases and standards"
+  },
+  {
+    "address": "0x42fdc3fb099766fd01289f215cd399146e1f224e",
+    "question": "After Game 8 (Dec 3, 2026), will Sindarov have strictly more points than Gukesh in the 2026 FIDE World Championship?",
+    "delphiUrl": "https://delphi.fyi/market/504e6681-752b-4f09-9893-b6a8db54332e",
+    "category": "niche_communities",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.631773,
+      "no": 0.368227
+    },
+    "closesAt": "2026-12-03T13:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-02T13:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if Sindarov's cumulative score is strictly greater than Gukesh's cumulative score in the 2026 FIDE World Championship after Game 8 has been completed, with Game 8 completed strictly after 2026-11-24T09:09:06.017Z and the result confirmed at or before 2026-12-04T03:00:00.000Z.\n- \"No\": Wins if Sindarov's cumulative score is equal to or less than Gukesh's cumulative score in the 2026 FIDE World Championship after Game 8 has been completed, with Game 8 completed strictly after 2026-11-24T09:09:06.017Z and the result confirmed at or before 2026-12-04T03:00:00.000Z.\n\nClarifications:\n- Cumulative score is calculated using standard FIDE match scoring: 1 point for a win, 0.5 points for a draw, and 0 points for a loss, summed across all games from Game 1 through Game 8 inclusive.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-12-03T21:00:00.000Z to 2026-12-04T03:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://worldchampionship.fide.com/",
+      "https://www.chess.com/events/2026-fide-chess-world-championship/games",
+      "https://www.fide.com/"
+    ],
+    "settled": null,
+    "categoryLabel": "Niche communities"
+  },
+  {
+    "address": "0xa96dc716066329d666f3c50e6d8f71c701347296",
+    "question": "Will \"Yi-Chia Chen @ Fields Model\" rank 1st on the ARC-AGI-3 Kaggle final private leaderboard (ARC Prize 2026), announced Dec 4, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/ab31b917-9289-4a1c-be25-978581b8a97a",
+    "category": "niche_communities",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.478648,
+      "no": 0.521352
+    },
+    "closesAt": "2026-12-03T18:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-02T18:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the ARC Prize 2026 final private leaderboard for the ARC-AGI-3 Kaggle competition, published strictly after 2026-11-24T09:09:23.537Z and at or before 2026-12-04T23:00:00.000Z, shows the team entry named \"Yi-Chia Chen @ Fields Model\" ranked 1st.\n- \"No\": Wins if the ARC Prize 2026 final private leaderboard for the ARC-AGI-3 Kaggle competition, published strictly after 2026-11-24T09:09:23.537Z and at or before 2026-12-04T23:00:00.000Z, shows any team other than \"Yi-Chia Chen @ Fields Model\" ranked 1st.\n\nClarifications:\n- The final private leaderboard is the definitive ranking used to determine winners per competition rules; the public leaderboard is not used for settlement. If a team is disqualified after initially ranking 1st, the next eligible team at rank 1 is used.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-12-04T02:00:00.000Z to 2026-12-04T23:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/leaderboard",
+      "https://arcprize.org/competitions/2026"
+    ],
+    "settled": null,
+    "categoryLabel": "Niche communities"
+  },
+  {
+    "address": "0x96fd040517bbf73b2980e700e9a164d6efe672ec",
+    "question": "Will Statistics Canada report a November 2026 unemployment rate of \u22656.8% in its Labour Force Survey on Dec 4, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/fa8d0fa4-ce4e-4fba-b3dd-79e91ab1d657",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.354986,
+      "no": 0.645014
+    },
+    "closesAt": "2026-12-04T12:30:00.000Z",
+    "evidenceCutoffAt": "2026-12-03T12:30:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u22656.8%\": Wins if the Statistics Canada Labour Force Survey release published strictly after 2026-11-24T09:53:54.380Z and at or before 2026-12-04T20:30:00.000Z reports the seasonally adjusted national unemployment rate for November 2026 as 6.8% or higher.\n- \"No, below 6.8%\": Wins if the Statistics Canada Labour Force Survey release published strictly after 2026-11-24T09:53:54.380Z and at or before 2026-12-04T20:30:00.000Z reports the seasonally adjusted national unemployment rate for November 2026 as lower than 6.8%.\n\nClarifications:\n- The relevant figure is the seasonally adjusted Canada-wide unemployment rate for November 2026, as reported in Statistics Canada's official Labour Force Survey release scheduled for December 4, 2026 (released at 8:30 a.m. ET).",
+    "dataSources": [
+      "https://www150.statcan.gc.ca/n1/pub/71-001-x/71-001-x2026001-eng.htm",
+      "https://www150.statcan.gc.ca/n1/en/subjects/labour"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0x6d14f2291c886a3469e988a7f80d307802a40c0a",
+    "question": "Will the BLS Employment Situation for Nov 2026 (Dec 4) report a first-print NFP change of +90,000 or more?",
+    "delphiUrl": "https://delphi.fyi/market/2f39d046-6fe9-4413-ae69-c163943d721f",
+    "category": "controls",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.500191,
+      "no": 0.499809
+    },
+    "closesAt": "2026-12-04T12:30:00.000Z",
+    "evidenceCutoffAt": "2026-12-03T12:30:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, +90,000 or more\": Wins if the BLS Employment Situation news release for November 2026, published strictly after 2026-11-24T09:10:01.801Z and at or before 2026-12-04T20:30:00.000Z, reports a first-print total nonfarm payroll (NFP) change of +90,000 or greater.\n- \"No, below +90,000\": Wins if the BLS Employment Situation news release for November 2026, published strictly after 2026-11-24T09:10:01.801Z and at or before 2026-12-04T20:30:00.000Z, reports a first-print total nonfarm payroll (NFP) change of less than +90,000 (including any negative or zero figure).\n\nClarifications:\n- The NFP figure used is the total nonfarm payroll employment change as stated in the initial (\"first-print\") release of the November 2026 Employment Situation report; subsequent revisions to this figure are not considered.",
+    "dataSources": [
+      "https://www.bls.gov/news.release/empsit.nr0.htm",
+      "https://www.bls.gov/bls/news-release/empsit.htm"
+    ],
+    "settled": null,
+    "categoryLabel": "Macro and rates"
+  },
+  {
+    "address": "0x20dee82eb91956386496658e86ce5696edd09b25",
+    "question": "Will the men's winner of the Valencia Marathon on Dec 6, 2026 finish in under 2:03:00?",
+    "delphiUrl": "https://delphi.fyi/market/e5e4099f-dc25-48af-b2bb-15747a7be471",
+    "category": "niche_communities",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.566744,
+      "no": 0.433256
+    },
+    "closesAt": "2026-12-06T06:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-05T06:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, under 2:03:00\": Wins if the official men's winning finish time recorded at the Valencia Marathon on December 6, 2026 is strictly less than 2 hours, 3 minutes, and 0 seconds (2:03:00), with the race completing strictly after 2026-11-24T09:52:47Z and the result confirmed at or before 2026-12-06T14:00:00Z.\n- \"No, 2:03:00 or more\": Wins if the official men's winning finish time recorded at the Valencia Marathon on December 6, 2026 is 2 hours, 3 minutes, and 0 seconds (2:03:00) or greater, with the race completing strictly after 2026-11-24T09:52:47Z and the result confirmed at or before 2026-12-06T14:00:00Z.\n\nClarifications:\n- The men's winning finish time is the official gun time (or chip time if gun time is not published) for the first-place male finisher as reported in the official race results for the 2026 Valencia Marathon Trinidad Alfonso.",
+    "dataSources": [
+      "https://www.valenciaciudaddelrunning.com/en/marathon/",
+      "https://worldathletics.org/competition/calendar-results",
+      "https://www.watchathletics.com"
+    ],
+    "settled": null,
+    "categoryLabel": "Niche communities"
+  },
+  {
+    "address": "0x55224cfb33522244ac64f969e5a38a5d4413fc23",
+    "question": "Will Japan's ESRI second preliminary Jul-Sep 2026 real GDP (released 2026-12-08 08:50 JST) show q/q annualized growth \u2265 0.0% (seasonally adjusted)?",
+    "delphiUrl": "https://delphi.fyi/market/d06344de-e853-4fff-b9a4-f311b21f9be6",
+    "category": "local_language",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.490848,
+      "no": 0.509152
+    },
+    "closesAt": "2026-12-07T12:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-06T12:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u2265 0.0% annualized\": Wins if the Japan ESRI second preliminary GDP estimate for July\u2013September 2026, published strictly after 2026-11-24T09:41:22.780Z and at or before 2026-12-08T02:00:00Z, reports a quarter-on-quarter annualized real GDP growth rate (seasonally adjusted) of 0.0% or above.\n- \"No, below 0.0% annualized\": Wins if the Japan ESRI second preliminary GDP estimate for July\u2013September 2026, published strictly after 2026-11-24T09:41:22.780Z and at or before 2026-12-08T02:00:00Z, reports a quarter-on-quarter annualized real GDP growth rate (seasonally adjusted) below 0.0%.\n\nClarifications:\n- The measured figure is the seasonally adjusted, annualized quarter-on-quarter real GDP growth rate from the \"Quarterly Estimates of GDP for Jul.\u2013Sep. 2026 (The Second Preliminary Estimates)\" release by Japan's Cabinet Office Economic and Social Research Institute (ESRI), scheduled for 2026-12-08 at 08:50 JST (2026-12-07T23:50:00Z). The settlement window's upper bound of 2026-12-08T02:00:00Z is after this scheduled release time.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-12-07T20:00:00Z to 2026-12-08T02:00:00Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://www.esri.cao.go.jp/en/sna/data/sokuhou/files/2026/toukei_2026.html",
+      "https://www.esri.cao.go.jp/en/news/index.html"
+    ],
+    "settled": null,
+    "categoryLabel": "Local-language sources"
+  },
+  {
+    "address": "0x71917b135a4702a3ae7276acbb2c42509e72ea8c",
+    "question": "Will China's NBS November 2026 PPI be up 6.0%+ YoY in the Dec 9 release?",
+    "delphiUrl": "https://delphi.fyi/market/af98750a-41d6-4f2e-9bba-2824b2474d8c",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.257672,
+      "no": 0.742328
+    },
+    "closesAt": "2026-12-08T12:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-07T12:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u22656.0% YoY\": Wins if the NBS official November 2026 PPI year-on-year figure, as published in the December 9, 2026 NBS press release, is greater than or equal to 6.0% strictly after 2026-11-24T09:14:48.225Z and at or before 2026-12-09T04:00:00.000Z.\n- \"No, <6.0% YoY\": Wins if the NBS official November 2026 PPI year-on-year figure, as published in the December 9, 2026 NBS press release, is less than 6.0% strictly after 2026-11-24T09:14:48.225Z and at or before 2026-12-09T04:00:00.000Z.\n\nClarifications:\n- The measured figure is China's producer price index for industrial products (PPI) year-on-year change for November 2026, as reported in the NBS Industrial Producer Price Indexes press release scheduled for December 9, 2026. If the NBS releases the data before 2026-12-09T04:00:00.000Z but after the market closes at 2026-12-08T12:00:00.000Z, that published figure is used for settlement.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-12-08T20:00:00.000Z to 2026-12-09T04:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://www.stats.gov.cn/english/PressRelease/",
+      "https://english.news.cn"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0xf640443d15af94932e1a7294c15312f0ad9e1136",
+    "question": "Will Go 1.27.5 be listed with a release date at go.dev/doc/devel/release by 2026-12-08 23:59 UTC?",
+    "delphiUrl": "https://delphi.fyi/market/27642cc2-8682-46c8-b078-2ff1bebf983e",
+    "category": "releases_standards",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.612991,
+      "no": 0.387009
+    },
+    "closesAt": "2026-12-08T23:59:00.000Z",
+    "evidenceCutoffAt": "2026-12-07T23:59:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if an entry for Go 1.27.5 with an associated release date appears on the Go Release History page at https://go.dev/doc/devel/release strictly after 2026-11-24T09:11:43.779Z and the listing is present as of 2026-12-08T23:59:00.000Z UTC.\n- \"No\": Wins if no such entry for Go 1.27.5 with an associated release date appears on the Go Release History page at https://go.dev/doc/devel/release as of 2026-12-08T23:59:00.000Z UTC.",
+    "dataSources": [
+      "https://go.dev/doc/devel/release"
+    ],
+    "settled": null,
+    "categoryLabel": "Releases and standards"
+  },
+  {
+    "address": "0xfdac0b329c1eeccb338d7acc0ec4b537dcfc58c2",
+    "question": "Will Thomas Aeschi (SVP) be elected to the Swiss Federal Council by the Federal Assembly on Dec 9, 2026, succeeding Guy Parmelin, per parlament.ch?",
+    "delphiUrl": "https://delphi.fyi/market/a47fa3b7-d426-49c8-af9a-2a1bd70a5bf1",
+    "category": "votes_government",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.515014,
+      "no": 0.484986
+    },
+    "closesAt": "2026-12-09T05:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-08T05:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if Thomas Aeschi (SVP) is confirmed as elected to the Swiss Federal Council by the Federal Assembly, succeeding Guy Parmelin, in the election held on December 9, 2026, with the result announced strictly after 2026-11-24T09:57:51.224Z and at or before 2026-12-09T13:00:00.000Z.\n- \"No\": Wins if the Federal Assembly holds its Federal Council election on December 9, 2026, within the same window, and Thomas Aeschi is not elected to the seat vacated by Guy Parmelin.\n\nClarifications:\n- The election session in question is the Federal Assembly's by-election on December 9, 2026, to fill the seat vacated by Guy Parmelin's departure from the Federal Council. Election results are determined by the official vote count announced by the Federal Assembly on that date.",
+    "dataSources": [
+      "https://www.parlament.ch",
+      "https://www.bk.admin.ch",
+      "https://www.reuters.com"
+    ],
+    "settled": null,
+    "categoryLabel": "Votes and government"
+  },
+  {
+    "address": "0xb50e81264ad92791f9849f7f83e0dbad03a39861",
+    "question": "Will INEGI report Mexico's annual CPI (INPC) inflation for Nov 2026 at 3.80% or higher on Dec 9, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/30e213cf-826f-48da-9255-e6f4110b71d3",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.568582,
+      "no": 0.431418
+    },
+    "closesAt": "2026-12-09T10:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-08T10:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, 3.80% or higher\": Wins if the INEGI official monthly INPC bulletin published strictly after 2026-11-24T09:56:24.388Z and at or before 2026-12-09T18:00:00.000Z reports Mexico's annual CPI (INPC) inflation for November 2026 at 3.80% or higher.\n- \"No, below 3.80%\": Wins if the INEGI official monthly INPC bulletin published strictly after 2026-11-24T09:56:24.388Z and at or before 2026-12-09T18:00:00.000Z reports Mexico's annual CPI (INPC) inflation for November 2026 below 3.80%.\n\nClarifications:\n- The figure used is the annual general inflation rate (variaci\u00f3n anual del INPC) for the full month of November 2026, as stated in the official INEGI monthly INPC indicator bulletin (Bolet\u00edn de Indicador del INPC) scheduled for release on or around December 9, 2026. Biweekly (quincenal) releases are not used.",
+    "dataSources": [
+      "https://en.www.inegi.org.mx/app/saladeprensa/",
+      "https://www.inegi.org.mx/programas/inpc/2018/"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0x61be752b093bb2ac3b7019360543fa97056eb2b6",
+    "question": "Will the Bank of Canada raise its overnight rate target above 2.50% at its 2026-12-09 announcement?",
+    "delphiUrl": "https://delphi.fyi/market/f41cbd1b-46c8-43f2-ac09-9e37bbcac6fa",
+    "category": "controls",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.641501,
+      "no": 0.358499
+    },
+    "closesAt": "2026-12-09T13:45:00.000Z",
+    "evidenceCutoffAt": "2026-12-08T13:45:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the Bank of Canada's official press release for the December 9, 2026 fixed announcement date sets the overnight rate target at a value strictly greater than 2.50%, published strictly after 2026-11-24T09:10:57Z and at or before 2026-12-09T21:45:00Z.\n- \"No\": Wins if the Bank of Canada's official press release for the December 9, 2026 fixed announcement date sets the overnight rate target at 2.50% or below, published strictly after 2026-11-24T09:10:57Z and at or before 2026-12-09T21:45:00Z.\n\nClarifications:\n- The overnight rate target is the value stated in the Bank of Canada's press release issued at 09:45 ET (14:45 UTC) on December 9, 2026; a rate change takes effect the day after announcement, but the announced target value is used for resolution regardless of effective date.",
+    "dataSources": [
+      "https://www.bankofcanada.ca/core-functions/monetary-policy/key-interest-rate/",
+      "https://www.bankofcanada.ca/press/press-releases/"
+    ],
+    "settled": null,
+    "categoryLabel": "Macro and rates"
+  },
+  {
+    "address": "0x169f02be2177934e0d9fbb29c52b1d6d1891026c",
+    "question": "Will Japan's House of Councillors pass the food consumption tax cut bill in a plenary vote on or before Dec 9, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/94568cb3-ad19-4b57-9998-cd0f7190af6c",
+    "category": "local_language",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.450237,
+      "no": 0.549763
+    },
+    "closesAt": "2026-12-09T14:59:00.000Z",
+    "evidenceCutoffAt": "2026-12-08T14:59:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if Japan's House of Councillors approves the food consumption tax cut bill in a plenary vote strictly after 2026-11-24T09:11:19.940Z and at or before 2026-12-09T14:59:00.000Z.\n- \"No\": Wins if, as of 2026-12-09T14:59:00.000Z, the House of Councillors has not approved the food consumption tax cut bill in a plenary vote within the window above \u2014 including if the bill was rejected, withdrawn, or not brought to a plenary vote by that deadline.\n\nClarifications:\n- The bill in question is the government-sponsored legislation to temporarily reduce Japan's consumption tax on food and beverages from 8% to 1%, which passed Japan's House of Representatives on November 6, 2026, and was transmitted to the House of Councillors.\n- Approval requires a majority vote at a plenary session (honkaigi) of the House of Councillors; committee passage alone does not satisfy the \"Yes\" condition.",
+    "dataSources": [
+      "https://www.sangiin.go.jp/eng/index.htm",
+      "https://www.nippon.com/en/",
+      "https://www.japantimes.co.jp"
+    ],
+    "settled": null,
+    "categoryLabel": "Local-language sources"
+  },
+  {
+    "address": "0x94a46dbc0e0a16e7177b792062b3786d94983179",
+    "question": "Will the FOMC's Dec 9, 2026 policy statement list at least one dissenting vote?",
+    "delphiUrl": "https://delphi.fyi/market/b3c6bb2d-4797-4762-816d-3e41aede5c38",
+    "category": "controls",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.361937,
+      "no": 0.638063
+    },
+    "closesAt": "2026-12-09T18:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-08T18:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the official FOMC policy statement released strictly after 2026-11-24T09:55:33.574Z and at or before 2026-12-10T02:00:00.000Z for the December 9, 2026 meeting explicitly records one or more dissenting votes \u2014 i.e., the statement's vote tally is not unanimous and names at least one member who voted against the monetary policy action.\n- \"No\": Wins if the official FOMC policy statement released strictly after 2026-11-24T09:55:33.574Z and at or before 2026-12-10T02:00:00.000Z for the December 9, 2026 meeting records a unanimous vote with no dissenting members named.\n\nClarifications:\n- The source of record is the official Federal Reserve press release of the December 9, 2026 FOMC policy statement, as published on the Federal Reserve's newsevents/pressreleases page or the FOMC calendars page. The vote count and any named dissenters appearing in that statement are the basis for resolution.",
+    "dataSources": [
+      "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+      "https://www.federalreserve.gov/newsevents/pressreleases.htm"
+    ],
+    "settled": null,
+    "categoryLabel": "Macro and rates"
+  },
+  {
+    "address": "0x7a17b76f7f1cda20e8bc5a88166c4732e6db39f5",
+    "question": "Will English Wikipedia siteinfo API show \u22657,275,500 articles at 12:00 UTC on Dec 10, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/895eec8d-4442-45c5-bec6-72b94a5eef89",
+    "category": "niche_communities",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.618848,
+      "no": 0.381152
+    },
+    "closesAt": "2026-12-10T11:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-09T11:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u22657,275,500 articles\": Wins if the `articles` field returned by the English Wikipedia siteinfo API (`https://en.wikipedia.org/w/api.php?action=query&meta=siteinfo&siprop=statistics&format=json`) is greater than or equal to 7,275,500 when queried at 2026-12-10T12:00:00Z, provided that query time falls strictly after 2026-11-24T09:56:34Z and at or before 2026-12-10T19:00:00Z.\n- \"No, fewer than 7,275,500\": Wins if the `articles` field returned by the same API is less than 7,275,500 when queried at 2026-12-10T12:00:00Z, provided that query time falls strictly after 2026-11-24T09:56:34Z and at or before 2026-12-10T19:00:00Z.\n\nClarifications:\n- The article count is the value of `query.statistics.articles` in the JSON response from `https://en.wikipedia.org/w/api.php?action=query&meta=siteinfo&siprop=statistics&format=json`; this counts only content pages in the main namespace that contain at least one internal wikilink and are not redirects, as defined by MediaWiki's article-count methodology.",
+    "dataSources": [
+      "https://en.wikipedia.org/w/api.php?action=query&meta=siteinfo&siprop=statistics&format=json",
+      "https://www.mediawiki.org/wiki/API:Siteinfo",
+      "https://en.wikipedia.org/wiki/Special:Statistics"
+    ],
+    "settled": null,
+    "categoryLabel": "Niche communities"
+  },
+  {
+    "address": "0x921e39354e4bfc18251ad1b1c80eec1a3940ab82",
+    "question": "Will oven-sh/bun publish a GitHub release tagged bun-v1.4.6 or later between Nov 28 and Dec 11, 2026 (UTC)?",
+    "delphiUrl": "https://delphi.fyi/market/7d3aa76e-de21-4890-999a-c721acf4a7da",
+    "category": "releases_standards",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.540478,
+      "no": 0.459522
+    },
+    "closesAt": "2026-12-11T00:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-10T00:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the oven-sh/bun GitHub repository publishes at least one release with a tag that is exactly \"bun-v1.4.6\" or follows a later semantic version (e.g., bun-v1.4.7, bun-v1.5.0, bun-v2.0.0, etc.) strictly after 2026-11-28T00:00:00Z and at or before 2026-12-11T00:00:00Z.\n- \"No\": Wins if no such release tag meeting the above condition exists in the oven-sh/bun GitHub repository strictly after 2026-11-28T00:00:00Z and at or before 2026-12-11T00:00:00Z.\n\nClarifications:\n- A qualifying tag is any tag of the form \"bun-vX.Y.Z\" where the version X.Y.Z is semantically greater than or equal to 1.4.6 (i.e., bun-v1.4.6 itself, or any higher patch, minor, or major version).\n- The release's publication timestamp on GitHub (the \"published_at\" field) must fall strictly after 2026-11-28T00:00:00Z and at or before 2026-12-11T00:00:00Z to count.",
+    "dataSources": [
+      "https://github.com/oven-sh/bun/releases",
+      "https://api.github.com/repos/oven-sh/bun/releases"
+    ],
+    "settled": null,
+    "categoryLabel": "Releases and standards"
+  },
+  {
+    "address": "0x2b7c2f3fc81678be6b7bae7ac24cf5f99b6e0326",
+    "question": "Will the German Bundestag pass the Pflegeneuordnungsgesetz (PNOG, BT-Drs. 21/8869) in its final third-reading vote by Dec 11, 2026, per bundestag.de?",
+    "delphiUrl": "https://delphi.fyi/market/32c59a7b-f917-498f-834d-8f4061625107",
+    "category": "votes_government",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.51611,
+      "no": 0.48389
+    },
+    "closesAt": "2026-12-11T06:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-10T06:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the German Bundestag holds a third-reading (3. Lesung) plenary vote on the Pflegeneuordnungsgesetz (PNOG, BT-Drs. 21/8869) strictly after 2026-11-24T09:54:30.470Z and at or before 2026-12-11T22:00:00.000Z, and the bill is adopted by a majority of votes cast, as confirmed by the official plenary record (Plenarprotokoll) or the legislative tracking entry (Beratungsvorgang) published on bundestag.de.\n- \"No\": Wins if no such third-reading vote adopting the bill is recorded on bundestag.de within that same window \u2014 including if the vote was held but the bill was rejected, or if no third-reading vote took place at all by 2026-12-11T22:00:00.000Z.\n\nClarifications:\n- \"Adopted\" means the Bundestag approved the bill in its final third reading (3. Lesung) with a majority of valid votes cast, as reflected in the official Plenarprotokoll or the DIP Beratungsvorgang for BT-Drs. 21/8869 on bundestag.de. A referral back to committee or a failed vote does not satisfy this condition.\n\nCorrected Nov 26, 2026: the end of the settlement window was moved from 2026-12-11T14:00:00.000Z to 2026-12-11T22:00:00.000Z so that it covers the time the official result is published. The on-chain metadata keeps the original text.",
+    "dataSources": [
+      "https://dip.bundestag.de",
+      "https://www.bundestag.de/dokumente/protokolle",
+      "https://www.bundestag.de/dokumente/parlamentsdokumentation"
+    ],
+    "settled": null,
+    "categoryLabel": "Votes and government"
+  },
+  {
+    "address": "0x10d5075e3fb5b43f3d67205cd89694b97a92d0e1",
+    "question": "Will UK ONS report monthly GDP growth \u22650.1% for Oct 2026 (first estimate, MoM) in its Dec 11 release?",
+    "delphiUrl": "https://delphi.fyi/market/87b1ea37-1059-435a-8394-c393bf8ee60e",
+    "category": "official_statistics",
+    "marketTier": "A",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.615457,
+      "no": 0.384543
+    },
+    "closesAt": "2026-12-11T06:00:00.000Z",
+    "evidenceCutoffAt": "2026-12-10T06:00:00.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes, \u22650.1% growth\": Wins if the ONS GDP monthly estimate bulletin for October 2026, published on its official release page strictly after 2026-11-24T09:58:43.976Z and at or before 2026-12-11T14:00:00.000Z, reports a month-on-month GDP growth figure (first estimate, seasonally adjusted) of \u22650.1% for October 2026.\n- \"No, below 0.1%\": Wins if that same first-estimate bulletin reports a month-on-month GDP growth figure of less than 0.1% (including zero or negative) for October 2026.\n\nClarifications:\n- The month-on-month figure is the percentage change in real GDP (chained volume measure, seasonally adjusted) between September 2026 and October 2026, as stated in the ONS GDP monthly estimate bulletin for October 2026 released on 11 December 2026 at 07:00 UTC.",
+    "dataSources": [
+      "https://www.ons.gov.uk/releases/gdpmonthlyestimateukoctober2026",
+      "https://www.ons.gov.uk/economy/grossdomesticproductgdp/datasets/gdpmonthlyestimateuktimeseriesdataset/current"
+    ],
+    "settled": null,
+    "categoryLabel": "Official statistics"
+  },
+  {
+    "address": "0x10f7f232cf20f579ef3929d699e49e8ffd4c1e94",
+    "question": "Will France invoke Article 49.3 on the 2027 PLFSS between Nov 28 and Dec 11, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/58a7ecf8-db0c-4ba9-8289-aa2b7019b230",
+    "category": "local_language",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.418946,
+      "no": 0.581054
+    },
+    "closesAt": "2026-12-11T23:59:59.000Z",
+    "evidenceCutoffAt": "2026-12-10T23:59:59.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if the French Prime Minister formally invokes Article 49, alin\u00e9a 3 of the Constitution on the projet de loi de financement de la s\u00e9curit\u00e9 sociale (PLFSS) for 2027 strictly after 2026-11-28T00:00:00Z and at or before 2026-12-11T23:59:59Z, as confirmed by an official announcement at the National Assembly (Assembl\u00e9e nationale) or by the Prime Minister's office.\n- \"No\": Wins if no such invocation of Article 49.3 on the PLFSS 2027 is confirmed to have occurred strictly after 2026-11-28T00:00:00Z and at or before 2026-12-11T23:59:59Z.\n\nClarifications:\n- An invocation counts only if it concerns the PLFSS for the 2027 fiscal year specifically, not the PLF (projet de loi de finances) or any other bill. Any part of the PLFSS (premi\u00e8re partie, deuxi\u00e8me partie, etc.) qualifies.",
+    "dataSources": [
+      "https://www.assemblee-nationale.fr/",
+      "https://www.legifrance.gouv.fr/",
+      "https://www.lemonde.fr/",
+      "https://www.reuters.com/"
+    ],
+    "settled": null,
+    "categoryLabel": "Local-language sources"
+  },
+  {
+    "address": "0x3c8a98eb4ebca3156af93bf85c76bb3ac13ab4b0",
+    "question": "Will nodejs.org/dist/index.json list Node.js v26.14.0 or later with a release date on or before Dec 11, 2026?",
+    "delphiUrl": "https://delphi.fyi/market/78d72388-bae0-45f1-b394-6e72e1467e0a",
+    "category": "releases_standards",
+    "marketTier": "B",
+    "wave": 1,
+    "status": "open",
+    "odds": {
+      "yes": 0.767552,
+      "no": 0.232448
+    },
+    "closesAt": "2026-12-11T23:59:59.000Z",
+    "evidenceCutoffAt": "2026-12-10T23:59:59.000Z",
+    "pots": {
+      "judgement": "20000000",
+      "settlement": "30000000"
+    },
+    "resolutionCriteria": "Resolution criteria:\n- \"Yes\": Wins if `https://nodejs.org/dist/index.json` contains an entry whose version field is \"v26.14.0\" or any higher v26.x.x (or any later major) release, and whose date field is on or before \"2026-12-11\", with that entry first appearing in the feed strictly after 2026-11-24T09:13:13.143Z and confirmed present at or before 2026-12-12T07:59:59.000Z.\n- \"No\": Wins if, at 2026-12-12T07:59:59.000Z, `https://nodejs.org/dist/index.json` contains no entry satisfying the conditions above.\n\nClarifications:\n- The window for a qualifying release is strictly after 2026-11-24T09:13:13.143Z (windowStart) and at or before 2026-12-12T07:59:59.000Z (settlementStartsAt). A release whose date field is on or before 2026-12-11 but whose entry does not appear in the feed by 2026-12-12T07:59:59.000Z does not satisfy \"Yes\".\n- Version comparison follows semantic versioning: v26.14.0 is the minimum qualifying version; any v26 patch or minor release \u2265 v26.14.0, or any Node.js major version > 26, also qualifies.",
+    "dataSources": [
+      "https://nodejs.org/dist/index.json",
+      "https://nodejs.org/en/download/releases",
+      "https://github.com/nodejs/node/releases"
+    ],
+    "settled": null,
+    "categoryLabel": "Releases and standards"
+  }
+]
