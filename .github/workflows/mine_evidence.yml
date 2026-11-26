@@ -27,6 +27,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests python-dotenv reportlab
 
+      - name: Compile Native C++ Mathematical Engine
+        run: |
+          g++ -O3 -shared -fPIC -o src/veritas_math.so src/veritas_fast_math.cpp
+
       - name: Run Test Suite Verification
         run: |
           python -m unittest discover test

@@ -7,3 +7,8 @@ test_data/
 .env
 .env.*
 *.pdf
+*.dll
+*.so
+*.lib
+*.pdb
+*.exp
