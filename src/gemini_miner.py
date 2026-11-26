@@ -68,7 +68,7 @@ def get_delphi_markets():
     with urllib.request.urlopen(req, timeout=15) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
-def submit_delphi_evidence(market_address: str, note: str, links: list = None):
+def submit_delphi_evidence(market_address: str, note: str, links: list = None, file_path: str = None):
     if not DELPHI_KEY or not requests:
         print("[-] DELPHI_API_ACCESS_KEY or requests not set. Skipping live submission.")
         return None
@@ -78,6 +78,15 @@ def submit_delphi_evidence(market_address: str, note: str, links: list = None):
         for link in links:
             if link:
                 data_tuples.append(("links[]", link))
+
+    files_payload = None
+    if file_path and os.path.exists(file_path):
+        try:
+            files_payload = {
+                "files": (os.path.basename(file_path), open(file_path, "rb"), "application/json")
+            }
+        except Exception as e:
+            print(f"[-] Could not attach file: {e}")
 
     headers = {
         "Authorization": f"Bearer {DELPHI_KEY}",
@@ -91,6 +100,7 @@ def submit_delphi_evidence(market_address: str, note: str, links: list = None):
         resp = requests.post(
             "https://delphi.fyi/v1/submissions",
             data=data_tuples,
+            files=files_payload,
             headers=headers,
             timeout=30
         )
@@ -184,7 +194,19 @@ Return strictly valid JSON:
             print(f"\n[{idx}] Market: {q} ({addr})")
             print(f"    Dispatching mathematical evidence note...")
             
-            res = submit_delphi_evidence(addr, note, [url] if url else None)
+            os.makedirs("data/snapshots", exist_ok=True)
+            snap_path = f"data/snapshots/mkt_{addr[:10]}.json"
+            snap_data = {
+                "market_address": addr,
+                "question": q,
+                "source_url": url,
+                "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "mathematical_note": note
+            }
+            with open(snap_path, "w", encoding="utf-8") as f:
+                json.dump(snap_data, f, indent=2)
+
+            res = submit_delphi_evidence(addr, note, [url] if url else None, file_path=snap_path)
             if res and "id" in res:
                 sub_id = res["id"]
                 print(f"    [+] Submitted! ID: {sub_id}")
