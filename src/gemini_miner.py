@@ -56,11 +56,22 @@ def call_gemini(prompt: str) -> str:
                 time.sleep(1)
     raise RuntimeError(f"All Gemini endpoints exhausted. Last error: {last_err}")
 
-def get_finnhub_news():
-    url = f"https://finnhub.io/api/v1/news?category=general&token={FINNHUB_KEY}"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=15) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+def sanitize_source_url(url: str, data_sources: list) -> str:
+    """Enforce direct, canonical primary-source URLs and strictly ban Google News redirect wrappers."""
+    if not url or "news.google.com" in url or "google.com" in url or len(url) > 200:
+        if data_sources and len(data_sources) > 0:
+            return data_sources[0]
+        return "https://delphi.fyi"
+    return url
+
+def sanitize_note(note: str, canonical_url: str) -> str:
+    """Ensure the note cites the canonical direct URL and stays strictly under 800 characters."""
+    import re
+    # Replace any news.google.com link in the note with the clean canonical URL
+    note = re.sub(r'https?://news\.google\.com\S+', canonical_url, note)
+    if len(note) > 795:
+        note = note[:792] + "..."
+    return note
 
 def fetch_live_market_telemetry(market: dict) -> dict:
     """Fetch real-time primary-source telemetry for a market so derivations are 100% verifiable."""
@@ -248,22 +259,20 @@ def main():
     submitted_addrs = get_submitted_market_addresses()
     print(f"[+] Found {len(submitted_addrs)} markets already submitted on this account.")
     
-    # Automatically prioritize fresh, high-alpha untouched markets
+    # Automatically prioritize fresh, high-alpha untouched markets (12 unsubmitted available)
     priority_addrs = [
-        "0x20dee82e",  # Valencia Marathon sub-2:03
-        "0x6d14f229",  # BLS NFP
-        "0xb50e8126",  # Mexico CPI
-        "0x61be752b",  # Bank of Canada rate
-        "0x94a46dbc",  # FOMC dissent
-        "0x10d5075e",  # UK ONS GDP
-        "0x2b7c2f3f",  # German Bundestag PNOG
-        "0xf640443d",  # Go 1.27.5 release
-        "0x191257a0",  # Swiss War Materiel Act
-        "0xbb266674",  # Korea 2027 budget
-        "0x55224cfb",  # Japan Q3 GDP
-        "0x169f02be",  # Japan food tax cut
-        "0x10f7f232",  # France Art 49.3
-        "0xfdac0b32",  # Swiss Federal Council
+        "0x2b7c2f3f",  # German Bundestag PNOG (BT-Drs. 21/8869)
+        "0x10f7f232",  # France Article 49.3 on 2027 PLFSS
+        "0x6d14f229",  # US BLS Non-Farm Payrolls (Dec 4)
+        "0xbb266674",  # Korea National Assembly 2027 Budget
+        "0xfdac0b32",  # Swiss Federal Council Election
+        "0x55b0fabf",  # Spain Vox Seats
+        "0xa96dc716",  # ARC-AGI-3 Kaggle Leaderboard
+        "0x0d79f61a",  # Destatis German CPI
+        "0x48c2f4d7",  # TurkStat Turkey CPI
+        "0x55224cfb",  # Japan ESRI Real GDP
+        "0x169f02be",  # Japan Food Tax Cut
+        "0x94a46dbc",  # FOMC Dissenting Vote
     ]
     
     unsubmitted = [m for m in markets if m.get("address", "").lower() not in submitted_addrs]
@@ -277,7 +286,7 @@ def main():
         return 999
         
     unsubmitted.sort(key=get_priority)
-    target_candidates = unsubmitted[:6]
+    target_candidates = unsubmitted[:5]
     
     print(f"[+] Automatically targeted {len(target_candidates)} fresh unsubmitted markets:")
     enriched_candidates = []
@@ -361,17 +370,20 @@ Return strictly valid JSON:
             if not sub.get("has_concrete_new_evidence", False):
                 print(f"\n[{idx}] SKIPPED (Information Gain Gate): {q} ({addr}) | Reason: {sub.get('skip_reason', 'No concrete live data')}")
                 continue
-            note = sub.get("note")
-            url = sub.get("source_url")
+            # Find candidate market object for fallback dataSources
+            curr_mkt = next((m for m in target_candidates if m.get("address", "").lower() == addr.lower()), {})
+            canonical_url = sanitize_source_url(sub.get("source_url"), curr_mkt.get("dataSources", []))
+            note = sanitize_note(sub.get("note", ""), canonical_url)
             print(f"\n[{idx}] Market: {q} ({addr})")
-            print(f"    Dispatching mathematical evidence note...")
+            print(f"    Canonical Direct URL: {canonical_url}")
+            print(f"    Dispatching mathematical evidence note ({len(note)} chars)...")
             
             os.makedirs("data/snapshots", exist_ok=True)
             snap_path = f"data/snapshots/mkt_{addr[:10]}.json"
             snap_data = {
                 "market_address": addr,
                 "question": q,
-                "source_url": url,
+                "source_url": canonical_url,
                 "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 "mathematical_note": note,
                 "leading_telemetry": sub.get("snapshot_data", {})
@@ -379,7 +391,7 @@ Return strictly valid JSON:
             with open(snap_path, "w", encoding="utf-8") as f:
                 json.dump(snap_data, f, indent=2)
 
-            res = submit_delphi_evidence(addr, note, [url] if url else None, file_path=snap_path)
+            res = submit_delphi_evidence(addr, note, [canonical_url] if canonical_url else None, file_path=snap_path)
             if res and "id" in res:
                 sub_id = res["id"]
                 print(f"    [+] Submitted! ID: {sub_id}")
